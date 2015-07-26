@@ -2,15 +2,15 @@
 libs <- c("tm", "plyr", "class")
 lapply(libs, require, character.only=TRUE)
 options(stringsAsFactors = FALSE)
-candidates <- c("bush_gw","obama_gw")
+candidates <- c("bush_gw","obama_bh")
 pathname <- '/Users/feyzi/Dropbox/03_1-Online Teaching/2-UMUC/2015-2Summer/DATA630-9020-20150518-20150809-2190-(Les Pang)/WEBEX/20150724-Anomaly Detection and Text Mining/Text Mining/speeches'
 
 #Clean the text
 cleanCorpus <- function(corpus) {
-  corpus.tmp <- tm_map(corpus, removePunctuation)
-  corpus.tmp <- tm_map(corpus.tmp, stripWhitespace)
-  corpus.tmp <- tm_map(corpus.tmp, tolower)
-  corpus.tmp <- tm_map(corpus.tmp, removeWords, stopwords(kind = "english"))
+  corpus.tmp <- tm_map(corpus, content_transformer(removePunctuation))
+  corpus.tmp <- tm_map(corpus.tmp, content_transformer(stripWhitespace))
+  corpus.tmp <- tm_map(corpus.tmp, content_transformer(tolower))
+  corpus.tmp <- tm_map(corpus.tmp, content_transformer(removeWords), stopwords(kind = "english"))
   return(corpus.tmp)
 }
 
@@ -24,5 +24,6 @@ generateTDM <- function(cand, path) {
   s.tdm <- removeSparseTerms(s.tdm, 0.7)
   result <- list(name = cand, tdm = s.tdm)
 }
+
 
 tdm <- lapply(candidates, generateTDM, path = pathname)
