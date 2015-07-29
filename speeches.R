@@ -27,3 +27,18 @@ generateTDM <- function(cand, path) {
 
 
 tdm <- lapply(candidates, generateTDM, path = pathname)
+
+#show the results
+str(tdm)
+
+#Attach name of the candidate to the attribute matrix
+bindCandidateToTDM <- function(tdm) {
+  s.mat <- t(data.matrix(tdm[["tdm"]]))
+  s.df <- as.data.frame(s.mat, stringsAsFactors = FALSE)
+  s.df <- cbind(s.df, rep(tdm[["name"]], nrow(s.df)))
+  colnames(s.df)[ncol(s.df)]
+  return(s.df)
+}
+
+candTDM <- lapply(tdm, bindCandidateToTDM)
+str(candTDM)
