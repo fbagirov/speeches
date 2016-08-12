@@ -3,7 +3,7 @@ libs <- c("tm", "plyr", "class")
 lapply(libs, require, character.only=TRUE)
 options(stringsAsFactors = FALSE)
 candidates <- c("bush_gw","obama_bh")
-pathname <- '/Users/feyzi/Dropbox/03_1-Online Teaching/2-UMUC/2015-2Summer/DATA630-9020-20150518-20150809-2190-(Les Pang)/WEBEX/20150724-Anomaly Detection and Text Mining/Text Mining/speeches'
+pathname <- 'directory where you store your text'
 
 #Clean the text
 cleanCorpus <- function(corpus) {
